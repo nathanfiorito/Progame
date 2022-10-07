@@ -32,7 +32,6 @@ namespace Progame.Application.UseCases.Category
             try
             {
                 var category = _mapper.Map<Domain.Entities.Category>(request);
-                category.CreatedAt = DateTime.Now;
 
                 var result = await _categoryRepository.CreateAsync(category);
 
@@ -40,13 +39,13 @@ namespace Progame.Application.UseCases.Category
                 {
                     response.StatusCode = HttpStatusCode.OK;
                     response.Data = result;
-                    response.Mensagem = "Usuário autenticado com sucesso!";
+                    response.Mensagem = "Categoria criada com sucesso!";
                 }
                 else
                 {
                     response.StatusCode = HttpStatusCode.NoContent;
                     response.Data = null;
-                    response.Mensagem = "Ocorreu um erro ao autenticar o usuario! Entre em contato com o adminsitrador do site.";
+                    response.Mensagem = "Ocorreu um erro ao criar a categoria! Entre em contato com o adminsitrador do site.";
                 }
                 return response;
             }

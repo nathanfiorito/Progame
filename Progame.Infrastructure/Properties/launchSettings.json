@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Progame.Infrastructure": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:61990;http://localhost:61991"
+    }
+  }
+}

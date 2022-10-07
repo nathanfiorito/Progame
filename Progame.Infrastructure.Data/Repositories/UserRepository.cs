@@ -23,7 +23,7 @@ namespace Progame.Infrastructure.Repositories
             {
                 using (var connection = new SqlConnection(connectionString))
                 {
-                    var sql = " SELECT * FROM User WHERE Username = @Username";
+                    var sql = " SELECT * FROM [progame].[dbo].[Users] WHERE Username = @Username OR Email = @Username";
 
                     connection.Open();
                     var result = await connection.QueryAsync<User>(sql, new { Username = username });

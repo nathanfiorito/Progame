@@ -12,6 +12,7 @@ using SwaggerConfig;
 using MediatR;
 using System.Reflection;
 using System;
+using Progame.WebApi;
 
 namespace Progame
 {
@@ -113,6 +114,8 @@ namespace Progame
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware(typeof(ErrorMiddleware));
 
             app.UseEndpoints(endpoints =>
             {

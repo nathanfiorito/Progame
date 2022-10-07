@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
 using Microsoft.Extensions.Configuration;
+using Progame.Domain.Entities;
 using Progame.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,11 @@ namespace Progame.Infrastructure.Data.Repositories
                     if (entity == null)
                         return false;
 
-                    return await connection.DeleteAsync(entity);
+                    var affectedRows = await connection.DeleteAsync(entity);
+
+                    connection.Close();
+
+                    return affectedRows;
                 }
             }
             catch (Exception ex)
@@ -55,10 +60,11 @@ namespace Progame.Infrastructure.Data.Repositories
             {
                 using (var connection = new SqlConnection(connectionString))
                 {
-                    var sql = $@" SELECT * FROM {type.Name}";
-
                     connection.Open();
+
                     var result = await connection.GetAllAsync<TEntity>();
+
+                    connection.Close();
 
                     return result.AsQueryable();
                 }
@@ -75,11 +81,13 @@ namespace Progame.Infrastructure.Data.Repositories
             {
                 using (var connection = new SqlConnection(connectionString))
                 {
-                    var sql = $@" SELECT * FROM {type.Name} WHERE Id = @Id";
-
                     connection.Open();
-                    var result = await connection.QueryAsync<TEntity>(sql, new { Id = id });
-                    return result.FirstOrDefault();
+
+                    var result = await connection.GetAsync<TEntity>(id);
+                    
+                    connection.Close();
+
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -97,7 +105,10 @@ namespace Progame.Infrastructure.Data.Repositories
                     connection.Open();
 
                     var affectedRows = await connection.InsertAsync(entity);
-                    return affectedRows == 0;
+
+                    connection.Close();
+
+                    return affectedRows > 0;
                 }
             }
             catch (Exception ex)
@@ -113,7 +124,12 @@ namespace Progame.Infrastructure.Data.Repositories
                 using (var connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    return await connection.UpdateAsync(entity);
+
+                    var affectedRows = await connection.UpdateAsync(entity);
+
+                    connection.Close();
+
+                    return affectedRows;
                 }
             }
             catch (Exception ex)

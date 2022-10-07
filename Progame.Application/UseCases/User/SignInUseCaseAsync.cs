@@ -38,8 +38,8 @@ namespace Progame.Application.UseCases.Auth
                 if(result == null)
                     return new SignInOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "User not found!" };
 
-                if (!User.VerifyPasswordHash(result.Password, result.PasswordHash, result.PasswordSalt))
-                    return new SignInOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "Password wrong!" };
+                if (!User.VerifyPasswordHash(request.Password, result.PasswordHash, result.PasswordSalt))
+                    return new SignInOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "Wrong password!" };
 
                 string token = CreateToken(result);
 
@@ -78,7 +78,7 @@ namespace Progame.Application.UseCases.Auth
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(5),
+                expires: DateTime.Now.AddHours(2),
                 signingCredentials: credentials);
 
 

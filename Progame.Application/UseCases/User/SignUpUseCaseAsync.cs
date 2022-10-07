@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Progame.Domain.Entities;
 using Progame.Domain.Interfaces;
 using Progame.Domain.Interfaces.Repositories;
@@ -16,11 +17,14 @@ namespace Progame.Application.UseCases.Auth
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
         public SignUpUseCaseAsync(IConfiguration configuration,
+                                IMapper mapper,
                                 IUserRepository userRepository)
         {
             _configuration = configuration;
+            _mapper = mapper;
             _userRepository = userRepository;
         }
 
@@ -37,7 +41,8 @@ namespace Progame.Application.UseCases.Auth
                 {
                     return new SignUpOutResponse() { StatusCode = HttpStatusCode.BadRequest, Mensagem = "As senhas não coincidem!" }; 
                 }
-                User user = new User(request);
+
+                var user = _mapper.Map<Domain.Entities.User>(request);
 
                 var result = await _userRepository.CreateAsync(user);
 
@@ -45,13 +50,13 @@ namespace Progame.Application.UseCases.Auth
                 {
                     signUpOutResponse.StatusCode = HttpStatusCode.OK;
                     signUpOutResponse.Data = result;
-                    signUpOutResponse.Mensagem = "Usuário autenticado com sucesso!";
+                    signUpOutResponse.Mensagem = "Usuário criado com sucesso!";
                 }
                 else
                 {
                     signUpOutResponse.StatusCode = HttpStatusCode.NoContent;
                     signUpOutResponse.Data = null;
-                    signUpOutResponse.Mensagem = "Ocorreu um erro ao autenticar o usuario! Entre em contato com o adminsitrador do site.";
+                    signUpOutResponse.Mensagem = "Ocorreu um erro ao criar o usuario! Entre em contato com o adminsitrador do site.";
                 }
                 return signUpOutResponse;
             }

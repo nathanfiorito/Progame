@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Progame.Application.UseCases.Category
 {
-    public class GetCategoryByIdUseCaseAsync : UseCaseBase, IUseCaseAsync<GetCategoryByIdResponse, CategoryOutResponse> 
+    public class GetCategoryByIdUseCaseAsync : UseCaseBase, IUseCaseAsync<GetCategoryByIdRequest, CategoryOutResponse> 
     {
         private readonly IConfiguration _configuration;
         private readonly ICategoryRepository _categoryRepository;
@@ -24,7 +24,7 @@ namespace Progame.Application.UseCases.Category
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<CategoryOutResponse> Execute(GetCategoryByIdResponse request)
+        public async Task<CategoryOutResponse> Execute(GetCategoryByIdRequest request)
         {
             CategoryOutResponse categoryOutResponse = new CategoryOutResponse();
             try

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +15,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Progame.Domain\Progame.Domain.csproj" />
     <ProjectReference Include="..\Progame.Infrastructure.Data\Progame.Infrastructure.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\Question\" />
   </ItemGroup>
 
 </Project>
