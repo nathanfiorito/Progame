@@ -33,7 +33,7 @@ namespace Progame.Application.UseCases.QuestionType
 
         public async Task<QuestionTypeOutResponse> Execute(InsertQuestionTypeRequest request)
         {
-            QuestionTypeOutResponse response = new QuestionTypeOutResponse();
+            QuestionTypeOutResponse response;
             try
             {
                 var questionType = _mapper.Map<Domain.Entities.QuestionType>(request);
@@ -42,15 +42,13 @@ namespace Progame.Application.UseCases.QuestionType
 
                 if (result)
                 {
-                    response.StatusCode = HttpStatusCode.OK;
-                    response.Data = result;
-                    response.Mensagem = "Dado criada com sucesso!";
+                    var msg = "Dado criada com sucesso!";
+                    response = new QuestionTypeOutResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    response.StatusCode = HttpStatusCode.NoContent;
-                    response.Data = null;
-                    response.Mensagem = "Ocorreu um erro ao criar dado! Entre em contato com o adminsitrador do site.";
+                    var msg = "Ocorreu um erro ao criar dado! Entre em contato com o adminsitrador do site.";
+                    response = new QuestionTypeOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
                 return response;
             }

@@ -17,6 +17,12 @@ namespace Progame.Domain.Entities
             this.CreatedAt = DateTime.Now;
         }
 
+        public Category(UpdateCategoryRequest request)
+        {
+            CategoryName = request.CategoryName;
+            this.UpdatedAt = DateTime.Now;
+        }
+
         public Category()
         {
         }

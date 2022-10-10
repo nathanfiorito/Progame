@@ -36,7 +36,6 @@ namespace Progame.Application.UseCases.Answer
 
         public async Task<AnswerOutResponse> Execute(InsertAnswerRequest request)
         {
-            AnswerOutResponse response = new AnswerOutResponse();
             try
             {
                 var category = await _categoryRepository.FindByIdAsync(request.QuestionId);
@@ -50,17 +49,14 @@ namespace Progame.Application.UseCases.Answer
 
                 if (result)
                 {
-                    response.StatusCode = HttpStatusCode.OK;
-                    response.Data = result;
-                    response.Mensagem = "Resposta criada com sucesso!";
+                    var msg = "Answer inserted!";
+                    return new AnswerOutResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    response.StatusCode = HttpStatusCode.NoContent;
-                    response.Data = null;
-                    response.Mensagem = "Ocorreu um erro ao criar a resposta! Entre em contato com o adminsitrador do site.";
+                    var msg = "An error occurred while attempt to insert the answer! Contact website administrator.";
+                    return new AnswerOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return response;
             }
             catch (Exception ex)
             {

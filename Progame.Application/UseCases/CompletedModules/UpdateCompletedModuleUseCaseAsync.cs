@@ -45,19 +45,24 @@ namespace Progame.Application.UseCases.CompletedModules
             CompletedModuleOutResponse response = new CompletedModuleOutResponse();
             try
             {
+                var completedModules = await _completedModuleRepository.FindByIdAsync(request.ModuleId);
+
+                if (completedModules == null)
+                    return new CompletedModuleOutResponse() { StatusCode = HttpStatusCode.NotFound, Mensagem = "Completed Module not found!" };
+
                 var user = await _userRepository.FindByIdAsync(request.UserId);
 
                 if (user == null)
-                    return new CompletedModuleOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "User not found!" };
+                    return new CompletedModuleOutResponse() { StatusCode = HttpStatusCode.NotFound, Mensagem = "User not found!" };
 
                 var module = await _moduleRepository.FindByIdAsync(request.ModuleId);
 
                 if (module == null)
-                    return new CompletedModuleOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "Module not found!" };
+                    return new CompletedModuleOutResponse() { StatusCode = HttpStatusCode.NotFound, Mensagem = "Module not found!" };
 
-                var CompletedModules = _mapper.Map<Domain.Entities.CompletedModules>(request);
+                completedModules = _mapper.Map<Domain.Entities.CompletedModules>(request);
 
-                var result = await _completedModuleRepository.UpdateAsync(CompletedModules);
+                var result = await _completedModuleRepository.UpdateAsync(completedModules);
 
                 if (result)
                 {

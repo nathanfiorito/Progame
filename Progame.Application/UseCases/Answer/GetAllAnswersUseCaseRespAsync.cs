@@ -26,23 +26,18 @@ namespace Progame.Application.UseCases.Answer
         {
             try
             {
-                GetAllAnswersResponse AnswerOutResponse = new GetAllAnswersResponse();
-
                 var result = await _answerRepository.FindAllAsync();
 
-                if (result.Count() > 0)
+                if (result.Any())
                 {
-                    AnswerOutResponse.StatusCode = HttpStatusCode.OK;
-                    AnswerOutResponse.Data = result;
-                    AnswerOutResponse.Mensagem = "Dados retornados com sucesso!";
+                    var msg = "Data returned with success!";
+                    return new GetAllAnswersResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    AnswerOutResponse.StatusCode = HttpStatusCode.NoContent;
-                    AnswerOutResponse.Data = null;
-                    AnswerOutResponse.Mensagem = "Não foi encontrado nenhum resultado com os parametros informados.";
+                    var msg = "An error occurred while attempt to find answers! Contact website administrator.";
+                    return new GetAllAnswersResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return AnswerOutResponse;
             }
             catch (Exception ex)
             {

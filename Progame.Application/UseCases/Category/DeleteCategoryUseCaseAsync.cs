@@ -44,17 +44,14 @@ namespace Progame.Application.UseCases.Category
 
                 if (result)
                 {
-                    response.StatusCode = HttpStatusCode.OK;
-                    response.Data = result;
-                    response.Mensagem = "Categoria deletada com sucesso!";
+                    var msg = "Category deleted!";
+                    return new CategoryOutResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    response.StatusCode = HttpStatusCode.NoContent;
-                    response.Data = null;
-                    response.Mensagem = "Ocorreu um erro ao criar a deletar! Entre em contato com o adminsitrador do site.";
+                    var msg = "An error occurred while attempt to delte the category! Contact website administrator.";
+                    return new CategoryOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return response;
             }
             catch (Exception ex)
             {

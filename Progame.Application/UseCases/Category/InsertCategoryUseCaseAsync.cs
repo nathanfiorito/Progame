@@ -28,26 +28,20 @@ namespace Progame.Application.UseCases.Category
 
         public async Task<CategoryOutResponse> Execute(InsertCategoryRequest request)
         {
-            CategoryOutResponse response = new CategoryOutResponse();
             try
             {
-                var category = _mapper.Map<Domain.Entities.Category>(request);
-
-                var result = await _categoryRepository.CreateAsync(category);
+                var result = await _categoryRepository.CreateAsync(_mapper.Map<Domain.Entities.Category>(request));
 
                 if (result)
                 {
-                    response.StatusCode = HttpStatusCode.OK;
-                    response.Data = result;
-                    response.Mensagem = "Categoria criada com sucesso!";
+                    var msg = "Category inserted!";
+                    return new CategoryOutResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    response.StatusCode = HttpStatusCode.NoContent;
-                    response.Data = null;
-                    response.Mensagem = "Ocorreu um erro ao criar a categoria! Entre em contato com o adminsitrador do site.";
+                    var msg = "An error occurred while attempt to insert the category! Contact website administrator.";
+                    return new CategoryOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return response;
             }
             catch (Exception ex)
             {

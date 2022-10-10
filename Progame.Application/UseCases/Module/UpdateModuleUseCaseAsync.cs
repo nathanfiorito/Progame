@@ -39,19 +39,14 @@ namespace Progame.Application.UseCases.Module
                 var module = await _moduleRepository.FindByIdAsync(request.Id);
 
                 if (module == null)
-                    return new ModuleOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "Answer not found!" };
+                    return new ModuleOutResponse() { StatusCode = HttpStatusCode.NotFound, Mensagem = "Module not found!" };
 
                 var category = await _categoryRepository.FindByIdAsync(request.CategoryId);
 
                 if (category == null)
                     return new ModuleOutResponse() { StatusCode = HttpStatusCode.NotFound, Mensagem = "Category not found!" };
 
-                module.ModuleName = request.ModuleName;
-                module.CategoryId = request.CategoryId;
-                module.Resume = request.Resume;
-                module.SupportText = request.SupportText;
-                module.ImgUrl = request.ImgUrl;
-                module.UpdatedAt = DateTime.Now;
+                module = _mapper.Map<Domain.Entities.Module>(module);
 
                 var result = await _moduleRepository.UpdateAsync(module);
 

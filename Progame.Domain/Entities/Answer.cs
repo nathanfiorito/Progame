@@ -20,6 +20,13 @@ namespace Progame.Domain.Entities
             this.CreatedAt = DateTime.Now;
         }
 
+        public Answer(UpdateAnswerRequest request)
+        {
+            AnswerText = request.AnswerText;
+            QuestionId = request.QuestionId;
+            this.UpdatedAt = DateTime.Now;
+        }
+
         public Answer()
         {
         }

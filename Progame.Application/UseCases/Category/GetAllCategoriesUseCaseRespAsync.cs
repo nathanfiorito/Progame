@@ -30,23 +30,18 @@ namespace Progame.Application.UseCases.Category
         {
             try
             {
-                GetAllCategoryResponse categoryOutResponse = new GetAllCategoryResponse();
-
                 var result = await _categoryRepository.FindAllAsync();
 
-                if (result.Count() > 0)
+                if (result.Any())
                 {
-                    categoryOutResponse.StatusCode = HttpStatusCode.OK;
-                    categoryOutResponse.Data = result;
-                    categoryOutResponse.Mensagem = "Dados retornados com sucesso!";
+                    var msg = "Data returned with success!";
+                    return new GetAllCategoryResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    categoryOutResponse.StatusCode = HttpStatusCode.NoContent;
-                    categoryOutResponse.Data = null;
-                    categoryOutResponse.Mensagem = "Não foi encontrado nenhum resultado com os parametros informados.";
+                    var msg = "An error occurred while attempt to find the category! Contact website administrator.";
+                    return new GetAllCategoryResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return categoryOutResponse;
             }
             catch(Exception ex)
             {

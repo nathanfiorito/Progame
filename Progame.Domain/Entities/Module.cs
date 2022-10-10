@@ -11,6 +11,16 @@ namespace Progame.Domain.Entities
         {
         }
 
+        public Module(UpdateModuleRequest request)
+        {
+            ModuleName = request.ModuleName;
+            SupportText = request.SupportText;
+            ImgUrl = request.ImgUrl;
+            Resume = request.Resume;
+            CategoryId = request.CategoryId;
+            UpdatedAt = DateTime.Now;
+        }
+
         public Module(InsertModuleRequest request)
         {
             ModuleName = request.ModuleName;

@@ -32,32 +32,25 @@ namespace Progame.Application.UseCases.Category
 
         public async Task<CategoryOutResponse> Execute(UpdateCategoryRequest request)
         {
-            CategoryOutResponse response = new CategoryOutResponse();
             try
             {
                 var category = await _categoryRepository.FindByIdAsync(request.Id);
 
                 if (category == null)
-                    return new CategoryOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "Category not found!" };
+                    return new CategoryOutResponse(HttpStatusCode.NotFound, "Category not found!", null);
 
-                category.CategoryName = request.CategoryName;
-                category.UpdatedAt = DateTime.Now;
-
-                var result = await _categoryRepository.UpdateAsync(category);
+                var result = await _categoryRepository.UpdateAsync(_mapper.Map<Domain.Entities.Category>(request));
 
                 if (result)
                 {
-                    response.StatusCode = HttpStatusCode.OK;
-                    response.Data = result;
-                    response.Mensagem = "Categoria atualizada com sucesso!";
+                    var msg = "Category updated!";
+                    return new CategoryOutResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    response.StatusCode = HttpStatusCode.NoContent;
-                    response.Data = null;
-                    response.Mensagem = "Ocorreu um erro ao atualizar a categoria! Entre em contato com o adminsitrador do site.";
+                    var msg = "An error occurred while attempt to update the category! Contact website administrator.";
+                    return new CategoryOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return response;
             }
             catch (Exception ex)
             {

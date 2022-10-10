@@ -33,33 +33,27 @@ namespace Progame.Application.UseCases.Answer
 
         public async Task<AnswerOutResponse> Execute(UpdateAnswerRequest request)
         {
-            AnswerOutResponse response = new AnswerOutResponse();
             try
             {
                 var answer = await _answerRepository.FindByIdAsync(request.Id);
 
                 if (answer == null)
-                    return new AnswerOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "Answer not found!" };
+                    return new AnswerOutResponse(HttpStatusCode.NotFound, "Answer not found.", null);
 
-                answer.AnswerText = request.AnswerText;
-                answer.QuestionId = request.QuestionId;
-                answer.UpdatedAt = DateTime.Now;
+                answer = _mapper.Map<Domain.Entities.Answer>(request);
 
                 var result = await _answerRepository.UpdateAsync(answer);
 
                 if (result)
                 {
-                    response.StatusCode = HttpStatusCode.OK;
-                    response.Data = result;
-                    response.Mensagem = "Resposta atualizada com sucesso!";
+                    var msg = "Answer updated!";
+                    return new AnswerOutResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    response.StatusCode = HttpStatusCode.NoContent;
-                    response.Data = null;
-                    response.Mensagem = "Ocorreu um erro ao atualizar a Resposta! Entre em contato com o adminsitrador do site.";
+                    var msg = "An error occurred while attempt to update the answer! Contact website administrator.";
+                    return new AnswerOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return response;
             }
             catch (Exception ex)
             {

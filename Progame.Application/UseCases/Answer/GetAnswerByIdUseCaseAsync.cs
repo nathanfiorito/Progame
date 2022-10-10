@@ -24,24 +24,20 @@ namespace Progame.Application.UseCases.Answer
 
         public async Task<AnswerOutResponse> Execute(GetAnswerByIdRequest request)
         {
-            AnswerOutResponse AnswerOutResponse = new AnswerOutResponse();
             try
             {
                 var result = await _answerRepository.FindByIdAsync(request.Id);
 
                 if (result != null)
                 {
-                    AnswerOutResponse.StatusCode = HttpStatusCode.OK;
-                    AnswerOutResponse.Data = result;
-                    AnswerOutResponse.Mensagem = "Dados retornados com sucesso!";
+                    var msg = "Data returned with success!";
+                    return new AnswerOutResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    AnswerOutResponse.StatusCode = HttpStatusCode.NoContent;
-                    AnswerOutResponse.Data = null;
-                    AnswerOutResponse.Mensagem = "Não foi encontrado nenhum resultado com os parametros informados.";
+                    var msg = "An error occurred while attempt to find answer! Contact website administrator.";
+                    return new AnswerOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return AnswerOutResponse;
             }
             catch (Exception ex)
             {

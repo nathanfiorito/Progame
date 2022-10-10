@@ -26,24 +26,20 @@ namespace Progame.Application.UseCases.Category
 
         public async Task<CategoryOutResponse> Execute(GetCategoryByIdRequest request)
         {
-            CategoryOutResponse categoryOutResponse = new CategoryOutResponse();
             try
             {
                 var result = await _categoryRepository.FindByIdAsync(request.Id);
 
                 if (result != null)
                 {
-                    categoryOutResponse.StatusCode = HttpStatusCode.OK;
-                    categoryOutResponse.Data = result;
-                    categoryOutResponse.Mensagem= "Dados retornados com sucesso!";
+                    var msg = "Data returned with success!";
+                    return new CategoryOutResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    categoryOutResponse.StatusCode = HttpStatusCode.NoContent;
-                    categoryOutResponse.Data = null;
-                    categoryOutResponse.Mensagem = "Não foi encontrado nenhum resultado com os parametros informados.";
+                    var msg = "An error occurred while attempt to find the category! Contact website administrator.";
+                    return new CategoryOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return categoryOutResponse;
             }
             catch (Exception ex)
             {

@@ -6,10 +6,7 @@ using Progame.Domain.Models;
 using Progame.Domain.Models.Request.Answer;
 using Progame.Domain.Models.Response.Answer;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Progame.Application.UseCases.Answer
@@ -43,17 +40,14 @@ namespace Progame.Application.UseCases.Answer
 
                 if (result)
                 {
-                    response.StatusCode = HttpStatusCode.OK;
-                    response.Data = result;
-                    response.Mensagem = "Resposta deletada com sucesso!";
+                    var msg = "Data deleted with success!";
+                    return new AnswerOutResponse(HttpStatusCode.OK, msg, result);
                 }
                 else
                 {
-                    response.StatusCode = HttpStatusCode.NoContent;
-                    response.Data = null;
-                    response.Mensagem = "Ocorreu um erro ao deletar a resposta! Entre em contato com o adminsitrador do site.";
+                    var msg = "An error occurred while attempt to delete the answer! Contact website administrator.";
+                    return new AnswerOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
-                return response;
             }
             catch (Exception ex)
             {
