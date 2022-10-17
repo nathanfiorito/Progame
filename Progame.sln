@@ -15,10 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Progame.Infrastructure.Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Progame.WebApi", "Progame.WebApi\Progame.WebApi.csproj", "{84B502B4-010F-427B-8A3C-0C9DEA230174}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{01788C93-5409-48B7-A0F4-49D53DD0BDBE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Progame.Application.Tests", "Progame.Application.Tests\Progame.Application.Tests.csproj", "{085B9646-6DE2-4AD7-B926-B28112EC9FB7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,16 +45,9 @@ Global
 		{84B502B4-010F-427B-8A3C-0C9DEA230174}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84B502B4-010F-427B-8A3C-0C9DEA230174}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84B502B4-010F-427B-8A3C-0C9DEA230174}.Release|Any CPU.Build.0 = Release|Any CPU
-		{085B9646-6DE2-4AD7-B926-B28112EC9FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{085B9646-6DE2-4AD7-B926-B28112EC9FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{085B9646-6DE2-4AD7-B926-B28112EC9FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{085B9646-6DE2-4AD7-B926-B28112EC9FB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{085B9646-6DE2-4AD7-B926-B28112EC9FB7} = {01788C93-5409-48B7-A0F4-49D53DD0BDBE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF45A8B7-5A38-42ED-862C-82A455D7BFD3}

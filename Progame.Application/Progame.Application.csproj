@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Progame.Infrastructure.Data\Progame.Infrastructure.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\Question\" />
-  </ItemGroup>
-
 </Project>

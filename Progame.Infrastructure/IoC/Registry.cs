@@ -21,6 +21,8 @@ using Progame.Application.UseCases.CompletedModules;
 using Progame.Domain.Models.Request.QuestionType;
 using Progame.Domain.Models.Response.QuestionType;
 using Progame.Application.UseCases.QuestionType;
+using Progame.Domain.Models.Response.Question;
+using Progame.Domain.Models.Request.Question;
 
 namespace Progame.Infrastructure.IoC
 {
@@ -75,8 +77,16 @@ namespace Progame.Infrastructure.IoC
             services.AddTransient<IUseCaseRespAsync<GetAllQuestionTypeResponse>, GetAllQuestionTypesUseCaseRespAsync>();
             #endregion
 
+            #region[Question]
+            services.AddTransient<IUseCaseAsync<GetQuestionByIdRequest, QuestionOutResponse>, GetQuestionByIdUseCaseAsync>();
+            services.AddTransient<IUseCaseAsync<InsertQuestionRequest, QuestionOutResponse>, InsertQuestionsUseCaseAsync>();
+            services.AddTransient<IUseCaseAsync<UpdateQuestionRequest, QuestionOutResponse>, UpdateQuestionsUseCaseAsync>();
+            services.AddTransient<IUseCaseAsync<DeleteQuestionRequest, QuestionOutResponse>, DeleteQuestionUseCaseAsync>();
+            services.AddTransient<IUseCaseRespAsync<GetAllQuestionsResponse>, GetAllQuestionsUseCaseRespAsync>();
             #endregion
-    }
+
+            #endregion
+        }
         public static void RegisterDatabse(this IServiceCollection services)
         {
             services.AddTransient<IAnswerRepository, AnswerRepository>();
