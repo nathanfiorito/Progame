@@ -12,6 +12,8 @@ namespace Progame.Domain.Entities
         public int? CorrectAnswerId { get; set; }
         public int QuestionTypeId { get; set; }
 
+
+
         public Question(UpdateQuestionRequest request)
         {
             QuestionText = request.QuestionText;
@@ -28,6 +30,10 @@ namespace Progame.Domain.Entities
             CorrectAnswerId = request.CorrectAnswerId == 0 ? null : request.CorrectAnswerId;
             QuestionTypeId = request.QuestionTypeId;
             CreatedAt = DateTime.Now;
+        }
+
+        public Question()
+        {
         }
     }
 }

@@ -16,5 +16,24 @@ namespace Progame.Infrastructure.Data.Repositories
         public QuestionRepository(IConfiguration configuration) : base(configuration)
         {
         }
+
+        public async Task<List<Question>> GetByModuleId(int moduleId)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    var sql = " SELECT * FROM [progame].[dbo].[Question] WHERE ModuleId = @ModuleId";
+
+                    connection.Open();
+                    var result = await connection.QueryAsync<Question>(sql, new { ModuleId = moduleId });
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

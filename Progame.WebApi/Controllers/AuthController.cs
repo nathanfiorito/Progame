@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -22,14 +23,18 @@ namespace Progame.WebApi.Controllers
     {
         private readonly IUseCaseAsync<SignUpRequest, SignUpOutResponse> _signUpUseCaseAsync;
         private readonly IUseCaseAsync<SignInRequest, SignInOutResponse> _signInUseCaseAsync;
+        private readonly IUseCaseRespAsync<GetAllUsersOutResponse> _findAllAsyncUseCaseAsync; 
         private readonly IConfiguration _configuration;
 
-        public AuthController(IUseCaseAsync<SignUpRequest, SignUpOutResponse> signUpUseCaseAsync,
-                             IUseCaseAsync<SignInRequest, SignInOutResponse> signInUseCaseAsync,
-                             IConfiguration configuration)
+        public AuthController(
+            IUseCaseAsync<SignUpRequest, SignUpOutResponse> signUpUseCaseAsync,
+            IUseCaseAsync<SignInRequest, SignInOutResponse> signInUseCaseAsync,
+            IUseCaseRespAsync<GetAllUsersOutResponse> findAllAsyncUseCaseAsync,
+            IConfiguration configuration)
         {
             _signUpUseCaseAsync = signUpUseCaseAsync;
             _signInUseCaseAsync = signInUseCaseAsync;
+            _findAllAsyncUseCaseAsync = findAllAsyncUseCaseAsync;
             _configuration = configuration;
         }
 
@@ -52,6 +57,15 @@ namespace Progame.WebApi.Controllers
         public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
         {
             using (SignUpOutResponse reponse = await _signUpUseCaseAsync.Execute(request))
+            {
+                return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
+            }
+        }
+
+        [HttpGet("FindAllAsync")]
+        public async Task<IActionResult> FindAllAsync()
+        {
+            using (GetAllUsersOutResponse reponse = await _findAllAsyncUseCaseAsync.ExecuteAsync())
             {
                 return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
             }

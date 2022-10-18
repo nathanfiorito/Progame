@@ -36,7 +36,7 @@ namespace Progame.WebApi
             ErrorResponse errorResponse;
             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
-                errorResponse = new ErrorResponse(HttpStatusCode.InternalServerError.ToString(), $"{ex.Message} {ex?.InnerException.Message}");
+                errorResponse = new ErrorResponse(HttpStatusCode.InternalServerError.ToString(), $"{ex.Message} {ex?.StackTrace}");
             }
             else
             {

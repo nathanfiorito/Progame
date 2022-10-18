@@ -38,7 +38,7 @@ namespace Progame.Application.UseCases.Auth
                 if(result == null)
                     return new SignInOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "User not found!" };
 
-                if (!User.VerifyPasswordHash(request.Password, result.PasswordHash, result.PasswordSalt))
+                if (!Domain.Entities.User.VerifyPasswordHash(request.Password, result.PasswordHash, result.PasswordSalt))
                     return new SignInOutResponse() { StatusCode = HttpStatusCode.Unauthorized, Mensagem = "Wrong password!" };
 
                 string token = CreateToken(result);
@@ -64,12 +64,13 @@ namespace Progame.Application.UseCases.Auth
             }
         }
 
-        private string CreateToken(User user)
+        private string CreateToken(Domain.Entities.User user)
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("username", user.Username),  
+                new Claim("email", user.Email),
+                new Claim("experience", user.Experience.ToString()),
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("JwtSecret").Value));

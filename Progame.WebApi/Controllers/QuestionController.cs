@@ -23,6 +23,7 @@ namespace Progame.WebApi.Controllers
         private readonly IUseCaseAsync<InsertQuestionRequest, QuestionOutResponse> _insertQuestionUseCaseAsync;
         private readonly IUseCaseAsync<UpdateQuestionRequest, QuestionOutResponse> _updateQuestionUseCaseAsync;
         private readonly IUseCaseAsync<DeleteQuestionRequest, QuestionOutResponse> _deleteQuestionUseCaseAsync;
+        private readonly IUseCaseAsync<GetQuestionByModuleIdRequest, QuestionOutResponse> _getQuestioByModuleIdUseCaseAsync;
         private readonly IConfiguration _configuration;
 
         public QuestionController(IUseCaseRespAsync<GetAllQuestionsResponse> getAllQuestionsUseCaseRespAsync,
@@ -30,6 +31,7 @@ namespace Progame.WebApi.Controllers
                             IUseCaseAsync<InsertQuestionRequest, QuestionOutResponse> insertQuestionUseCaseAsync,
                             IUseCaseAsync<UpdateQuestionRequest, QuestionOutResponse> updateQuestionUseCaseAsync,
                             IUseCaseAsync<DeleteQuestionRequest, QuestionOutResponse> deleteQuestionUseCaseAsync,
+                            IUseCaseAsync<GetQuestionByModuleIdRequest, QuestionOutResponse> getQuestioByModuleIdUseCaseAsync,
                              IConfiguration configuration)
         {
             _getAllQuestionsUseCaseRespAsync = getAllQuestionsUseCaseRespAsync;
@@ -37,6 +39,7 @@ namespace Progame.WebApi.Controllers
             _insertQuestionUseCaseAsync = insertQuestionUseCaseAsync;
             _updateQuestionUseCaseAsync = updateQuestionUseCaseAsync;
             _deleteQuestionUseCaseAsync = deleteQuestionUseCaseAsync;
+            _getQuestioByModuleIdUseCaseAsync = getQuestioByModuleIdUseCaseAsync;
             _configuration = configuration;
         }
 
@@ -62,6 +65,15 @@ namespace Progame.WebApi.Controllers
         public async Task<IActionResult> GetOne([FromQuery] GetQuestionByIdRequest request)
         {
             using (QuestionOutResponse reponse = await _getByIdQuestionUseCaseRespAsync.Execute(request))
+            {
+                return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
+            }
+        }
+
+        [HttpGet("GetByModuleId")]
+        public async Task<IActionResult> GetByModuleId([FromQuery] GetQuestionByModuleIdRequest request)
+        {
+            using (QuestionOutResponse reponse = await _getQuestioByModuleIdUseCaseAsync.Execute(request))
             {
                 return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
             }

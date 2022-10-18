@@ -37,7 +37,7 @@ namespace Progame.Application.UseCases.Auth
                 if(userExists != null)
                     return new SignUpOutResponse() { StatusCode = HttpStatusCode.Ambiguous, Mensagem = "Já existe um usuário com esse nome." };
 
-                if (!User.ComparePassword(request.Password,request.PasswordConfirm))
+                if (!Domain.Entities.User.ComparePassword(request.Password,request.PasswordConfirm))
                 {
                     return new SignUpOutResponse() { StatusCode = HttpStatusCode.BadRequest, Mensagem = "As senhas não coincidem!" }; 
                 }

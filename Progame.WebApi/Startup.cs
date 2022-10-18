@@ -38,7 +38,7 @@ namespace Progame
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:5001")
+                        builder.WithOrigins("http://localhost:4200")
                                             .AllowAnyOrigin()
                                             .AllowAnyMethod()
                                             .AllowAnyHeader();
@@ -108,6 +108,7 @@ namespace Progame
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("_myAllowSpecificOrigins");
             app.UseHttpsRedirection();
 
             app.UseRouting();

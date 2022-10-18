@@ -23,6 +23,7 @@ using Progame.Domain.Models.Response.QuestionType;
 using Progame.Application.UseCases.QuestionType;
 using Progame.Domain.Models.Response.Question;
 using Progame.Domain.Models.Request.Question;
+using Progame.Application.UseCases.User;
 
 namespace Progame.Infrastructure.IoC
 {
@@ -35,6 +36,7 @@ namespace Progame.Infrastructure.IoC
             #region[Auth]
             services.AddTransient<IUseCaseAsync<SignUpRequest, SignUpOutResponse>, SignUpUseCaseAsync>();
             services.AddTransient<IUseCaseAsync<SignInRequest, SignInOutResponse>, SignInUseCaseAsync>();
+            services.AddTransient<IUseCaseRespAsync<GetAllUsersOutResponse>, FindAllAsyncUseCaseAsync>();
             #endregion
 
             #region[Category]
@@ -59,6 +61,7 @@ namespace Progame.Infrastructure.IoC
             services.AddTransient<IUseCaseAsync<UpdateModuleRequest, ModuleOutResponse>, UpdateModuleUseCaseAsync>();
             services.AddTransient<IUseCaseAsync<DeleteModuleRequest, ModuleOutResponse>, DeleteModuleUseCaseAsync>();
             services.AddTransient<IUseCaseRespAsync<GetAllModulesResponse>, GetAllModulesUseCaseRespAsync>();
+            services.AddTransient<IUseCaseAsync<GetQuestionByModuleIdRequest, ModuleOutResponse>, GetModuleWithQuestionUseCaseAsync>();
             #endregion
 
             #region[CompletedModules]
@@ -79,6 +82,7 @@ namespace Progame.Infrastructure.IoC
 
             #region[Question]
             services.AddTransient<IUseCaseAsync<GetQuestionByIdRequest, QuestionOutResponse>, GetQuestionByIdUseCaseAsync>();
+            services.AddTransient<IUseCaseAsync<GetQuestionByModuleIdRequest, QuestionOutResponse >, GetQuestionByModuleIdUseCaseAsync>();
             services.AddTransient<IUseCaseAsync<InsertQuestionRequest, QuestionOutResponse>, InsertQuestionsUseCaseAsync>();
             services.AddTransient<IUseCaseAsync<UpdateQuestionRequest, QuestionOutResponse>, UpdateQuestionsUseCaseAsync>();
             services.AddTransient<IUseCaseAsync<DeleteQuestionRequest, QuestionOutResponse>, DeleteQuestionUseCaseAsync>();
