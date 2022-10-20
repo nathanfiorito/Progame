@@ -23,18 +23,21 @@ namespace Progame.WebApi.Controllers
     {
         private readonly IUseCaseAsync<SignUpRequest, SignUpOutResponse> _signUpUseCaseAsync;
         private readonly IUseCaseAsync<SignInRequest, SignInOutResponse> _signInUseCaseAsync;
-        private readonly IUseCaseRespAsync<GetAllUsersOutResponse> _findAllAsyncUseCaseAsync; 
+        private readonly IUseCaseRespAsync<GetAllUsersOutResponse> _findAllAsyncUseCaseAsync;
+        private readonly IUseCaseAsync<GetUserExperienceRequest, GetUserExperienceOutResponse> _getUserExperience;
         private readonly IConfiguration _configuration;
 
         public AuthController(
             IUseCaseAsync<SignUpRequest, SignUpOutResponse> signUpUseCaseAsync,
             IUseCaseAsync<SignInRequest, SignInOutResponse> signInUseCaseAsync,
             IUseCaseRespAsync<GetAllUsersOutResponse> findAllAsyncUseCaseAsync,
+            IUseCaseAsync<GetUserExperienceRequest, GetUserExperienceOutResponse> getUserExperience,
             IConfiguration configuration)
         {
             _signUpUseCaseAsync = signUpUseCaseAsync;
             _signInUseCaseAsync = signInUseCaseAsync;
             _findAllAsyncUseCaseAsync = findAllAsyncUseCaseAsync;
+            _getUserExperience = getUserExperience;
             _configuration = configuration;
         }
 
@@ -66,6 +69,15 @@ namespace Progame.WebApi.Controllers
         public async Task<IActionResult> FindAllAsync()
         {
             using (GetAllUsersOutResponse reponse = await _findAllAsyncUseCaseAsync.ExecuteAsync())
+            {
+                return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
+            }
+        }
+
+        [HttpGet("GetExp")]
+        public async Task<IActionResult> GetExp([FromQuery] GetUserExperienceRequest request)
+        {
+            using (GetUserExperienceOutResponse reponse = await _getUserExperience.Execute(request))
             {
                 return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
             }

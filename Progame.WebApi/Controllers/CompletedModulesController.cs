@@ -18,6 +18,7 @@ namespace Progame.WebApi.Controllers
     {
         private readonly IUseCaseRespAsync<GetAllCompletedModulesResponse> _getAllCompletedModulesUseCaseRespAsync;
         private readonly IUseCaseAsync<GetCompletedModuleByIdRequest, CompletedModuleOutResponse> _getByIdCompletedModuleUseCaseRespAsync;
+        private readonly IUseCaseAsync<GetCompletedModuleByUserRequest, CompletedModuleOutResponse> _getByUserCompletedModuleUseCaseRespAsync;
         private readonly IUseCaseAsync<InsertCompletedModuleRequest, CompletedModuleOutResponse> _insertCompletedModuleUseCaseAsync;
         private readonly IUseCaseAsync<UpdateCompletedModuleRequest, CompletedModuleOutResponse> _updateCompletedModuleUseCaseAsync;
         private readonly IUseCaseAsync<DeleteCompletedModuleRequest, CompletedModuleOutResponse> _deleteCompletedModuleUseCaseAsync;
@@ -25,6 +26,7 @@ namespace Progame.WebApi.Controllers
 
         public CompletedModuleController(IUseCaseRespAsync<GetAllCompletedModulesResponse> getAllCompletedModulesUseCaseRespAsync,
                             IUseCaseAsync<GetCompletedModuleByIdRequest, CompletedModuleOutResponse> getByIdCompletedModuleUseCaseRespAsync,
+                            IUseCaseAsync<GetCompletedModuleByUserRequest, CompletedModuleOutResponse> getByUserCompletedModuleUseCaseRespAsync,
                             IUseCaseAsync<InsertCompletedModuleRequest, CompletedModuleOutResponse> insertCompletedModuleUseCaseAsync,
                             IUseCaseAsync<UpdateCompletedModuleRequest, CompletedModuleOutResponse> updateCompletedModuleUseCaseAsync,
                             IUseCaseAsync<DeleteCompletedModuleRequest, CompletedModuleOutResponse> deleteCompletedModuleUseCaseAsync,
@@ -32,6 +34,7 @@ namespace Progame.WebApi.Controllers
         {
             _getAllCompletedModulesUseCaseRespAsync = getAllCompletedModulesUseCaseRespAsync;
             _getByIdCompletedModuleUseCaseRespAsync = getByIdCompletedModuleUseCaseRespAsync;
+            _getByUserCompletedModuleUseCaseRespAsync = getByUserCompletedModuleUseCaseRespAsync;
             _insertCompletedModuleUseCaseAsync = insertCompletedModuleUseCaseAsync;
             _updateCompletedModuleUseCaseAsync = updateCompletedModuleUseCaseAsync;
             _deleteCompletedModuleUseCaseAsync = deleteCompletedModuleUseCaseAsync;
@@ -60,6 +63,15 @@ namespace Progame.WebApi.Controllers
         public async Task<IActionResult> GetOne([FromQuery] GetCompletedModuleByIdRequest request)
         {
             using (CompletedModuleOutResponse reponse = await _getByIdCompletedModuleUseCaseRespAsync.Execute(request))
+            {
+                return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
+            }
+        }
+
+        [HttpGet("GetByUser")]
+        public async Task<IActionResult> GetByUser([FromQuery] GetCompletedModuleByUserRequest request)
+        {
+            using (CompletedModuleOutResponse reponse = await _getByUserCompletedModuleUseCaseRespAsync.Execute(request))
             {
                 return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
             }

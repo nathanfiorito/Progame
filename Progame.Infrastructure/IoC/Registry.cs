@@ -37,6 +37,7 @@ namespace Progame.Infrastructure.IoC
             services.AddTransient<IUseCaseAsync<SignUpRequest, SignUpOutResponse>, SignUpUseCaseAsync>();
             services.AddTransient<IUseCaseAsync<SignInRequest, SignInOutResponse>, SignInUseCaseAsync>();
             services.AddTransient<IUseCaseRespAsync<GetAllUsersOutResponse>, FindAllAsyncUseCaseAsync>();
+            services.AddTransient<IUseCaseAsync<GetUserExperienceRequest, GetUserExperienceOutResponse>, GetUserExperienceUseCaseAsync>();
             #endregion
 
             #region[Category]
@@ -53,6 +54,7 @@ namespace Progame.Infrastructure.IoC
             services.AddTransient<IUseCaseAsync<UpdateAnswerRequest, AnswerOutResponse>, UpdateAnswerUseCaseAsync>();
             services.AddTransient<IUseCaseAsync<DeleteAnswerRequest, AnswerOutResponse>, DeleteAnswerUseCaseAsync>();
             services.AddTransient<IUseCaseRespAsync<GetAllAnswersResponse>, GetAllAnswersUseCaseRespAsync>();
+            services.AddTransient<IUseCaseAsync<GetAnswersByQuestionIdRequest, AnswerOutResponse>, GetAnswerByQuestionIdUseCaseAsync>();
             #endregion
 
             #region[Module]
@@ -70,6 +72,7 @@ namespace Progame.Infrastructure.IoC
             services.AddTransient<IUseCaseAsync<UpdateCompletedModuleRequest, CompletedModuleOutResponse>, UpdateCompletedModuleUseCaseAsync>();
             services.AddTransient<IUseCaseAsync<DeleteCompletedModuleRequest, CompletedModuleOutResponse>, DeleteCompletedModuleUseCaseAsync>();
             services.AddTransient<IUseCaseRespAsync<GetAllCompletedModulesResponse>, GetAllCompletedModulesUseCaseRespAsync>();
+            services.AddTransient< IUseCaseAsync<GetCompletedModuleByUserRequest, CompletedModuleOutResponse>, GetByUserCompletedModuleUseCaseRespAsync>();
             #endregion
 
             #region[QuestionType]

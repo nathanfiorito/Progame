@@ -10,5 +10,7 @@ namespace Progame.Domain.Interfaces.Repositories
     public interface IUserRepository : IRepositoryBase<User>
     {
         public Task<User> GetByUsername(string username);
+
+        public Task<User> GetUserExperience(int id);
     }
 }

@@ -18,6 +18,7 @@ namespace Progame.WebApi.Controllers
     {
         private readonly IUseCaseRespAsync<GetAllAnswersResponse> _getAllAnswersUseCaseRespAsync;
         private readonly IUseCaseAsync<GetAnswerByIdRequest, AnswerOutResponse> _getByIdAnswerUseCaseRespAsync;
+        private readonly IUseCaseAsync<GetAnswersByQuestionIdRequest, AnswerOutResponse> _getAnswerByQuestionIdUseCaseAsync;
         private readonly IUseCaseAsync<InsertAnswerRequest, AnswerOutResponse> _insertAnswerUseCaseAsync;
         private readonly IUseCaseAsync<UpdateAnswerRequest, AnswerOutResponse> _updateAnswerUseCaseAsync;
         private readonly IUseCaseAsync<DeleteAnswerRequest, AnswerOutResponse> _deleteAnswerUseCaseAsync;
@@ -25,6 +26,7 @@ namespace Progame.WebApi.Controllers
 
         public AnswerController(IUseCaseRespAsync<GetAllAnswersResponse> getAllAnswersUseCaseRespAsync,
                             IUseCaseAsync<GetAnswerByIdRequest, AnswerOutResponse> getByIdAnswerUseCaseRespAsync,
+                            IUseCaseAsync<GetAnswersByQuestionIdRequest, AnswerOutResponse> getAnswerByQuestionIdUseCaseAsync,
                             IUseCaseAsync<InsertAnswerRequest, AnswerOutResponse> insertAnswerUseCaseAsync,
                             IUseCaseAsync<UpdateAnswerRequest, AnswerOutResponse> updateAnswerUseCaseAsync,
                             IUseCaseAsync<DeleteAnswerRequest, AnswerOutResponse> deleteAnswerUseCaseAsync,
@@ -32,6 +34,7 @@ namespace Progame.WebApi.Controllers
         {
             _getAllAnswersUseCaseRespAsync = getAllAnswersUseCaseRespAsync;
             _getByIdAnswerUseCaseRespAsync = getByIdAnswerUseCaseRespAsync;
+            _getAnswerByQuestionIdUseCaseAsync = getAnswerByQuestionIdUseCaseAsync;
             _insertAnswerUseCaseAsync = insertAnswerUseCaseAsync;
             _updateAnswerUseCaseAsync = updateAnswerUseCaseAsync;
             _deleteAnswerUseCaseAsync = deleteAnswerUseCaseAsync;
@@ -60,6 +63,15 @@ namespace Progame.WebApi.Controllers
         public async Task<IActionResult> GetOne([FromQuery] GetAnswerByIdRequest request)
         {
             using (AnswerOutResponse reponse = await _getByIdAnswerUseCaseRespAsync.Execute(request))
+            {
+                return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
+            }
+        }
+
+        [HttpGet("GetAnswerByQuestionId")]
+        public async Task<IActionResult> GetAnswerByQuestionId([FromQuery] GetAnswersByQuestionIdRequest request)
+        {
+            using (AnswerOutResponse reponse = await _getAnswerByQuestionIdUseCaseAsync.Execute(request))
             {
                 return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
             }

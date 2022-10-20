@@ -60,9 +60,20 @@ namespace Progame.Application.UseCases.CompletedModules
 
                 if (result)
                 {
-                    response.StatusCode = HttpStatusCode.OK;
-                    response.Data = result;
-                    response.Mensagem = "Dado Inserido com sucesso!";
+                    user.Experience += request.Experience;
+                    result = await _userRepository.UpdateAsync(user);
+                    if (result)
+                    {
+                        response.StatusCode = HttpStatusCode.OK;
+                        response.Data = result;
+                        response.Mensagem = "Dado Inserido com sucesso!";
+                    }
+                    else
+                    {
+                        response.StatusCode = HttpStatusCode.NoContent;
+                        response.Data = null;
+                        response.Mensagem = "Ocorreu um erro ao inserir dado! Entre em contato com o adminsitrador do site.";
+                    }
                 }
                 else
                 {

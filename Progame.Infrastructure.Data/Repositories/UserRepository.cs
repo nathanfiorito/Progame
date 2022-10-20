@@ -35,5 +35,24 @@ namespace Progame.Infrastructure.Repositories
                 throw ex;
             }
         }
+
+        public async Task<User> GetUserExperience(int id)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    var sql = " SELECT * FROM [progame].[dbo].[Users] WHERE Id = @Id";
+
+                    connection.Open();
+                    var result = await connection.QueryAsync<User>(sql, new { Id = id });
+                    return result.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

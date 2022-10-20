@@ -7,6 +7,7 @@ using Progame.Domain.Models.Request.Answer;
 using Progame.Domain.Models.Request.Category;
 using Progame.Domain.Models.Response.Answer;
 using Progame.Domain.Models.Response.Category;
+using Progame.Infrastructure.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,17 +20,17 @@ namespace Progame.Application.UseCases.Answer
     public class InsertAnswerUseCaseAsync : UseCaseBase, IUseCaseAsync<InsertAnswerRequest, AnswerOutResponse>
     {
         private readonly IAnswerRepository _answerRepository;
-        private readonly ICompletedModulesRepository _categoryRepository;
+        private readonly IQuestionRepository _questionRepository;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
         public InsertAnswerUseCaseAsync(IAnswerRepository answerRepository,
-                                ICompletedModulesRepository categoryRepository,
+                                IQuestionRepository questionRepository,
                                 IMapper mapper,
                                 IConfiguration configuration)
         {
             _answerRepository = answerRepository;
-            _categoryRepository = categoryRepository;
+            _questionRepository = questionRepository;
             _mapper = mapper;
             _configuration = configuration;
         }
@@ -38,9 +39,9 @@ namespace Progame.Application.UseCases.Answer
         {
             try
             {
-                var category = await _categoryRepository.FindByIdAsync(request.QuestionId);
+                var question = await _questionRepository.FindByIdAsync(request.QuestionId);
 
-                if(category == null)
+                if(question == null)
                     return new AnswerOutResponse() { StatusCode = HttpStatusCode.NotFound, Mensagem = "Category not found!" };
 
                 var answer = _mapper.Map<Domain.Entities.Answer>(request);

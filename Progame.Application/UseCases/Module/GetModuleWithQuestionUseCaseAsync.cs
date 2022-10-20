@@ -20,16 +20,19 @@ namespace Progame.Application.UseCases.Module
     {
         private readonly IModuleRepository _moduleRepository;
         private readonly IQuestionRepository _questionRepository;
+        private readonly IAnswerRepository _answerRepository;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
         public GetModuleWithQuestionUseCaseAsync(IModuleRepository moduleRepository,
             IQuestionRepository questionRepository,
+            IAnswerRepository answerRepository,
             IMapper mapper,
             IConfiguration configuration)
         {
             _moduleRepository = moduleRepository;
             _questionRepository = questionRepository;
+            _answerRepository = answerRepository;
             _mapper = mapper;
             _configuration = configuration;
         }
