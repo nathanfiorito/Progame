@@ -1,0 +1,25 @@
+@import '../../../styles.scss';
+@import '../../themes/colors.scss';
+
+.content{
+    max-width: 20rem;
+    text-align: center;
+    & > h2 {
+        margin-bottom: 4rem;
+        padding: 0.3rem;
+        & > span {
+            color: $primary;
+        }
+    }
+
+    & > div {
+        & > button {
+            width: 20rem;
+            height: 3rem;
+        }
+
+        & > button + button {
+            margin-top: 1rem;
+        }
+    }
+}

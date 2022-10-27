@@ -28,6 +28,7 @@ namespace Progame.Domain.Entities
         {
             Username = request.Username;
             Email = request.Email;
+            ImgUrl = "https://cdn.discordapp.com/attachments/527648118955835394/1034984951617171566/generic.png";
             CreatedAt = DateTime.Now;
             CreatePasswordHash(request.Password);
         }

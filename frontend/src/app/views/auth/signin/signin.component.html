@@ -1,0 +1,53 @@
+<div fxLayout="row wrap" fxLayoutAlign="center" class="containter">
+    <div fxLayout="column" fxFlex="50%" fxFlex.sm="100%" fxLayoutAlign="space-around center">
+        <div class="logo">
+            <img src="assets/images/logo.svg" alt="">
+        </div>
+        <div>
+            <h4>Entre em sua conta</h4>
+            <div>
+                <form action="" [formGroup]="signInForm" fxLayoutAlign="start center" fxLayout="column" fxFlex="100%">
+                        <mat-form-field appearance="outline" autocomplete="off">
+                            <mat-label>Username</mat-label>
+                            <input matInput formControlName="username" placeholder="Username">
+
+                            <mat-error *ngIf="signInForm.controls.username.touched && signInForm.controls.username.errors?.required">
+                                USERNAME is required!
+                            </mat-error>
+                            <mat-error *ngIf="signInForm.controls.username.touched && signInForm.controls.username.errors?.minlength">
+                                SERNAME must have at least 4 letters!
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Password">
+                            <button matSuffix mat-icon-button aria-label="Clear" (click)="togglePasswordVisibility()">
+                                <mat-icon *ngIf="isPasswordVisible">visibility_off</mat-icon>
+                                <mat-icon *ngIf="!isPasswordVisible">visibility_on</mat-icon>
+                            </button>
+
+                            <mat-error *ngIf="signInForm.controls.password.touched && signInForm.controls.password.errors?.required">
+                               PASSWORD is required!
+                            </mat-error>
+                            <mat-error *ngIf="signInForm.controls.password.touched && signInForm.controls.password.errors?.minlength">
+                                PASSWORD must have at least 8 letters!
+                            </mat-error>
+                            <mat-error *ngIf="signInForm.controls.password.touched && signInForm.controls.password.errors?.pattern && !signInForm.controls.password.errors?.minlength">
+                                PASSWORD must contain special characters!
+                            </mat-error>
+                        </mat-form-field>
+                        <div class="checkbox">
+                            <mat-slide-toggle formControlName="remember" color="primary">Remember me!</mat-slide-toggle>
+                        </div>
+                        <button mat-flat-button color="primary" (click)="submitForm()">Entrar</button>
+                </form>
+            </div>
+        </div>
+        <div>
+            <p class="signup">Ainda não tem conta? <a (click)="redirectTo('signup')">Cadastre-se</a></p>
+        </div>
+    </div>
+    <div *ngIf="!isDeviceSm()" fxLayout="column" fxLayoutAlign="center" fxFlex="50%" class="sideB">
+        <img fxHide.sm src="assets/images/bg-img.svg" alt="">
+    </div>
+</div>

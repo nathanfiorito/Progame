@@ -1,0 +1,56 @@
+@import '../../../../styles.scss';
+@import '../../../themes/colors.scss';
+
+h4{
+    // margin-top: -2rem;
+    margin-bottom: 4rem;
+}
+
+.checkbox{
+    // margin-top: -10px;
+    margin-bottom: 30px;
+    margin-left: -120px;
+}
+
+.signup{
+    & > a{
+        color: $primary;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.containter{
+    height: 100%;
+    & > div {
+        height: 100%;
+        border: 1px solid red;
+    }
+}
+
+.sideB {
+    background-color: $primary;
+
+    & > .bg {
+        // background: url("assets/images/bg-img.svg") no-repeat 25%;
+    }
+}
+
+.logo {
+    & > img{
+        max-width: 5rem;
+    }
+}
+
+.mat-form-field{
+    width: 100%;
+
+    & + .mat-flat-button {
+        margin-top: 2.5rem;
+    }
+}
+
+.mat-flat-button{
+    width: 100%;
+}

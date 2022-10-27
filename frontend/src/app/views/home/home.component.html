@@ -1,8 +1,9 @@
-<mat-toolbar color="primary">
-    <span>{{title}}</span>
-</mat-toolbar>
-
-<div class="content">
-    <button mat-flat-button color="primary">Primary</button>
-    <button mat-stroked-button color="primary">Primary</button>
+<div fxLayout="column" fxFlexFill fxLayoutAlign="center center">
+    <div class="content">
+        <h2>Boas vindas ao <span>Progame!</span></h2>
+        <div fxLayout="column" width>
+            <button mat-flat-button color="primary" (click)="this.redirectTo('signin')">Entrar</button>
+            <button mat-stroked-button color="primary" (click)="this.redirectTo('signup')">Criar Conta</button>
+        </div>
+    </div>
 </div>

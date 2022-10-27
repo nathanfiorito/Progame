@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
 
-import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule } from '@angular/material/button'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatListModule } from '@angular/material/list'
+import { MatToolbarModule } from '@angular/material/toolbar'
 
 @NgModule({
   imports: [
@@ -10,8 +14,13 @@ import { MatButtonModule } from '@angular/material/button'
     MatButtonModule
   ],
   exports: [
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
     MatToolbarModule,
-    MatButtonModule
+    MatSlideToggleModule,
   ],
 })
 export class MaterialModule { }
