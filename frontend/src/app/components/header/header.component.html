@@ -1,0 +1,24 @@
+<mat-toolbar fxFlex="row wrap" fxLayoutAlign="none" fxLayoutGap="2rem">
+    <div fxFlex="50%" fxFlexAlign="end">
+        <div fxFlex="column" fxLayoutAlign="none end" fxLayoutGap="2rem">
+            <div>
+                <img src="../../../assets/images/logo.svg" alt="">
+            </div>
+            <div>
+                <div fxFlex="column" fxFlexAlign="center center" fxLayoutGap="1.5rem" class="page-links">
+                    <a (click)="ToggleView('dashboard')" [ngClass]="view === 'dashboard' ? 'page-link active' : 'page-link'">Estudar</a>
+                    <a (click)="ToggleView('ranking')" [ngClass]="view === 'ranking' ? 'page-link active' : 'page-link'">Ranking</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fxFlex="50%" fxFlexAlign="center center"  *ngIf="!isDeviceSm()">
+        <div fxFlex="row" fxLayoutAlign="space-between">
+            <app-progress-bar [logo]="true"></app-progress-bar>            
+        </div>
+        <div class="profile-container">
+            <h6 class="profile-salution" *ngIf="!isDeviceMd()">Olá, {{user.Username}}</h6>
+            <img class="profile-image" src="https://cdn.discordapp.com/attachments/527648118955835394/1034984951617171566/generic.png">
+        </div>
+    </div>
+</mat-toolbar>

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Progame.Domain.Models.Response.User
 {
-    public class GetUserExperienceOutResponse : ResponseBase
+    public class GetUserInfoOutResponse : ResponseBase
     {
-        public GetUserExperienceOutResponse(HttpStatusCode statusCode, string mensagem, object data) : base(statusCode, mensagem, data)
+        public GetUserInfoOutResponse(HttpStatusCode statusCode, string mensagem, object data) : base(statusCode, mensagem, data)
         {
         }
     }

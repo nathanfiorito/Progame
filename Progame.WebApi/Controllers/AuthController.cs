@@ -24,20 +24,20 @@ namespace Progame.WebApi.Controllers
         private readonly IUseCaseAsync<SignUpRequest, SignUpOutResponse> _signUpUseCaseAsync;
         private readonly IUseCaseAsync<SignInRequest, SignInOutResponse> _signInUseCaseAsync;
         private readonly IUseCaseRespAsync<GetAllUsersOutResponse> _findAllAsyncUseCaseAsync;
-        private readonly IUseCaseAsync<GetUserExperienceRequest, GetUserExperienceOutResponse> _getUserExperience;
+        private readonly IUseCaseAsync<GetUserInfoRequest, GetUserInfoOutResponse> _getUserInfo;
         private readonly IConfiguration _configuration;
 
         public AuthController(
             IUseCaseAsync<SignUpRequest, SignUpOutResponse> signUpUseCaseAsync,
             IUseCaseAsync<SignInRequest, SignInOutResponse> signInUseCaseAsync,
             IUseCaseRespAsync<GetAllUsersOutResponse> findAllAsyncUseCaseAsync,
-            IUseCaseAsync<GetUserExperienceRequest, GetUserExperienceOutResponse> getUserExperience,
+            IUseCaseAsync<GetUserInfoRequest, GetUserInfoOutResponse> getUserInfo,
             IConfiguration configuration)
         {
             _signUpUseCaseAsync = signUpUseCaseAsync;
             _signInUseCaseAsync = signInUseCaseAsync;
             _findAllAsyncUseCaseAsync = findAllAsyncUseCaseAsync;
-            _getUserExperience = getUserExperience;
+            _getUserInfo = getUserInfo;
             _configuration = configuration;
         }
 
@@ -74,10 +74,10 @@ namespace Progame.WebApi.Controllers
             }
         }
 
-        [HttpGet("GetExp")]
-        public async Task<IActionResult> GetExp([FromQuery] GetUserExperienceRequest request)
+        [HttpGet("GetUserInfo")]
+        public async Task<IActionResult> GetExp([FromQuery] GetUserInfoRequest request)
         {
-            using (GetUserExperienceOutResponse reponse = await _getUserExperience.Execute(request))
+            using (GetUserInfoOutResponse reponse = await _getUserInfo.Execute(request))
             {
                 return new ContentResult() { Content = JsonConverter.Convert(reponse), StatusCode = (int)reponse.StatusCode };
             }

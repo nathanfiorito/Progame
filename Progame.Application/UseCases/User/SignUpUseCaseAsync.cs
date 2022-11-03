@@ -35,7 +35,7 @@ namespace Progame.Application.UseCases.Auth
             {
                 var userExists = await _userRepository.GetByUsername(request.Username);
                 if(userExists != null)
-                    return new SignUpOutResponse() { StatusCode = HttpStatusCode.Ambiguous, Mensagem = "Já existe um usuário com esse nome." };
+                    return new SignUpOutResponse() { StatusCode = HttpStatusCode.BadRequest, Mensagem = "Já existe um usuário com esse nome." };
 
                 if (!Domain.Entities.User.ComparePassword(request.Password,request.PasswordConfirm))
                 {

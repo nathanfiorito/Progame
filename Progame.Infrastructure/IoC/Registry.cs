@@ -37,7 +37,7 @@ namespace Progame.Infrastructure.IoC
             services.AddTransient<IUseCaseAsync<SignUpRequest, SignUpOutResponse>, SignUpUseCaseAsync>();
             services.AddTransient<IUseCaseAsync<SignInRequest, SignInOutResponse>, SignInUseCaseAsync>();
             services.AddTransient<IUseCaseRespAsync<GetAllUsersOutResponse>, FindAllAsyncUseCaseAsync>();
-            services.AddTransient<IUseCaseAsync<GetUserExperienceRequest, GetUserExperienceOutResponse>, GetUserExperienceUseCaseAsync>();
+            services.AddTransient<IUseCaseAsync<GetUserInfoRequest, GetUserInfoOutResponse>, GetUserInfoUseCaseAsync>();
             #endregion
 
             #region[Category]

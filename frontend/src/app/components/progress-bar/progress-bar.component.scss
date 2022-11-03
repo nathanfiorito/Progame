@@ -1,0 +1,25 @@
+@import '../../../styles.scss';
+@import '../../themes//colors.scss';
+
+.mat-progress-bar{
+    height: 16px;
+    width: 280px;
+    border-radius: 50px;
+}
+
+img{
+    margin-top: 15px;
+}
+
+span{
+    font-size: 0.85rem;
+    color: $primary;
+}
+
+.level-description{
+    margin-left: 20px;
+}
+
+.level-missing{
+    color: $grey-6;
+}

@@ -10,36 +10,47 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Progame.Domain.Models.Request.User;
+using AutoMapper;
 
 namespace Progame.Application.UseCases.User
 {
-    public class GetUserExperienceUseCaseAsync : UseCaseBase, IUseCaseAsync<GetUserExperienceRequest, GetUserExperienceOutResponse>
+    public class GetUserInfoUseCaseAsync : UseCaseBase, IUseCaseAsync<GetUserInfoRequest, GetUserInfoOutResponse>
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
 
-        public GetUserExperienceUseCaseAsync(IConfiguration configuration,
-                                        IUserRepository userRepository)
+        public GetUserInfoUseCaseAsync(IConfiguration configuration,
+                                IUserRepository userRepository)
         {
             _configuration = configuration;
             _userRepository = userRepository;
         }
 
-        public async Task<GetUserExperienceOutResponse> Execute(GetUserExperienceRequest request)
+        public async Task<GetUserInfoOutResponse> Execute(GetUserInfoRequest request)
         {
             try
             {
-                var result = await _userRepository.GetUserExperience(request.Id);
+                var result = await _userRepository.FindByIdAsync(request.Id);
+
+                Domain.Entities.User user = new Domain.Entities.User()
+                {
+                    Id = result.Id,
+                    Username = result.Username,
+                    Email = result.Email,
+                    Experience = result.Experience,
+                    IsAdmin = result.IsAdmin,
+                    ImgUrl = result.ImgUrl
+                };
 
                 if (result != null)
                 {
                     var msg = "Data returned with success!";
-                    return new GetUserExperienceOutResponse(HttpStatusCode.OK, msg, result.Experience);
+                    return new GetUserInfoOutResponse(HttpStatusCode.OK, msg, user);
                 }
                 else
                 {
                     var msg = "An error occurred while attempt to find answers! Contact website administrator.";
-                    return new GetUserExperienceOutResponse(HttpStatusCode.BadRequest, msg, null);
+                    return new GetUserInfoOutResponse(HttpStatusCode.BadRequest, msg, null);
                 }
             }
             catch (Exception ex)

@@ -1,3 +1,4 @@
+<app-fetching [isFetching]="isFetching"></app-fetching>
 <div fxLayout="row wrap" fxLayoutAlign="center" class="containter">
     <div fxLayout="column" fxFlex="50%" fxFlex.sm="100%" fxLayoutAlign="space-around center">
         <div class="logo">
@@ -6,15 +7,15 @@
         <div>
             <h4>Entre em sua conta</h4>
             <div>
-                <form action="" [formGroup]="signInForm" fxLayoutAlign="start center" fxLayout="column" fxFlex="100%">
+                <form action="" [formGroup]="signUpForm" fxLayoutAlign="start center" fxLayout="column" fxFlex="100%">
                         <mat-form-field appearance="outline" autocomplete="off">
                             <mat-label>Username</mat-label>
                             <input matInput formControlName="username" placeholder="Username">
 
-                            <mat-error *ngIf="signInForm.controls.username.touched && signInForm.controls.username.errors?.required">
+                            <mat-error *ngIf="signUpForm.controls.username.touched && signUpForm.controls.username.errors?.required">
                                 USERNAME is required!
                             </mat-error>
-                            <mat-error *ngIf="signInForm.controls.username.touched && signInForm.controls.username.errors?.minlength">
+                            <mat-error *ngIf="signUpForm.controls.username.touched && signUpForm.controls.username.errors?.minlength">
                                 SERNAME must have at least 4 letters!
                             </mat-error>
                         </mat-form-field>
@@ -22,10 +23,10 @@
                             <mat-label>Email</mat-label>
                             <input matInput formControlName="email" placeholder="Email">
 
-                            <mat-error *ngIf="signInForm.controls.email.touched && signInForm.controls.email.errors?.required">
+                            <mat-error *ngIf="signUpForm.controls.email.touched && signUpForm.controls.email.errors?.required">
                                 EMAIL is required!
                             </mat-error>
-                            <mat-error *ngIf="signInForm.controls.email.touched && signInForm.controls.email.errors?.email">
+                            <mat-error *ngIf="signUpForm.controls.email.touched && signUpForm.controls.email.errors?.email">
                                 EMAIL must be an e-mail!
                             </mat-error>
                         </mat-form-field>
@@ -37,13 +38,13 @@
                                 <mat-icon *ngIf="!isPasswordVisible">visibility_on</mat-icon>
                             </button>
 
-                            <mat-error *ngIf="signInForm.controls.password.touched && signInForm.controls.password.errors?.required">
+                            <mat-error *ngIf="signUpForm.controls.password.touched && signUpForm.controls.password.errors?.required">
                                PASSWORD is required!
                             </mat-error>
-                            <mat-error *ngIf="signInForm.controls.password.touched && signInForm.controls.password.errors?.minlength">
+                            <mat-error *ngIf="signUpForm.controls.password.touched && signUpForm.controls.password.errors?.minlength">
                                 PASSWORD must have at least 8 letters!
                             </mat-error>
-                            <mat-error *ngIf="signInForm.controls.password.touched && signInForm.controls.password.errors?.pattern && !signInForm.controls.password.errors?.minlength">
+                            <mat-error *ngIf="signUpForm.controls.password.touched && signUpForm.controls.password.errors?.pattern && !signUpForm.controls.password.errors?.minlength">
                                 PASSWORD must contain special characters!
                             </mat-error>
                         </mat-form-field>
@@ -55,20 +56,20 @@
                                 <mat-icon *ngIf="!isPasswordVisible">visibility_on</mat-icon>
                             </button>
 
-                            <mat-error *ngIf="signInForm.controls.passwordConfirm.touched && signInForm.controls.passwordConfirm.errors?.required">
+                            <mat-error *ngIf="signUpForm.controls.passwordConfirm.touched && signUpForm.controls.passwordConfirm.errors?.required">
                                PASSWORD is required!
                             </mat-error>
-                            <mat-error *ngIf="signInForm.controls.passwordConfirm.touched && signInForm.controls.passwordConfirm.errors?.minlength">
+                            <mat-error *ngIf="signUpForm.controls.passwordConfirm.touched && signUpForm.controls.passwordConfirm.errors?.minlength">
                                 PASSWORD must have at least 8 letters!
                             </mat-error>
-                            <mat-error *ngIf="signInForm.controls.passwordConfirm.touched && signInForm.controls.passwordConfirm.errors?.pattern && !signInForm.controls.passwordConfirm.errors?.minlength">
+                            <mat-error *ngIf="signUpForm.controls.passwordConfirm.touched && signUpForm.controls.passwordConfirm.errors?.pattern && !signUpForm.controls.passwordConfirm.errors?.minlength">
                                 PASSWORD must contain special characters!
                             </mat-error>
-                            <mat-error *ngIf="signInForm.controls.passwordConfirm.touched && signInForm.controls.passwordConfirm.errors?.['passwordMismatch']">
+                            <mat-error *ngIf="signUpForm.controls.passwordConfirm.touched && signUpForm.controls.passwordConfirm.errors?.['passwordMismatch']">
                                 passwords must match
                             </mat-error>
                         </mat-form-field>
-                        <button [disabled]="!signInForm.valid" mat-flat-button color="primary" (click)="SubmitForm()">Entrar</button>
+                        <button [disabled]="!signUpForm.valid" mat-flat-button color="primary" (click)="SubmitForm()">Entrar</button>
                 </form>
             </div>
         </div>

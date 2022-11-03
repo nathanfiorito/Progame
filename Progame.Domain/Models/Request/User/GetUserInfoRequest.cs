@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Progame.Domain.Models.Request.User
 {
-    public class GetUserExperienceRequest : BaseRequest
+    public class GetUserInfoRequest : BaseRequest
     {
 
     }

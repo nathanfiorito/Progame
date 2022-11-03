@@ -1,0 +1,13 @@
+<div fxFlex="row" fxLayoutAlign="center center" fxGap="1rem">
+  <img src="../../../assets/images/level.svg" alt="">
+    <div class="level-description">
+      <div>
+        <div fxFlex="column" fxLayoutAlign="space-between">
+          <span class="level">Nível {{this.level}}</span>
+          <span class="level-missing">+{{this.experience}} xp até</span>
+          <span class="level">Nível {{this.level + 1}}</span>
+        </div>
+      </div>
+      <mat-progress-bar mode="determinate" [value]="10" color="primary"></mat-progress-bar>
+    </div>
+  </div>

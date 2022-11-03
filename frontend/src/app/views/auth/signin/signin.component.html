@@ -1,3 +1,4 @@
+<app-fetching [isFetching]="isFetching"></app-fetching>
 <div fxLayout="row wrap" fxLayoutAlign="center" class="containter">
     <div fxLayout="column" fxFlex="50%" fxFlex.sm="100%" fxLayoutAlign="space-around center">
         <div class="logo">
@@ -37,14 +38,14 @@
                             </mat-error>
                         </mat-form-field>
                         <div class="checkbox">
-                            <mat-slide-toggle formControlName="remember" color="primary">Remember me!</mat-slide-toggle>
+                            <mat-slide-toggle formControlName="remember" color="primary"><small>Lembrar de mim</small></mat-slide-toggle>
                         </div>
-                        <button mat-flat-button color="primary" (click)="submitForm()">Entrar</button>
+                        <button [disabled]="!signInForm.valid" mat-flat-button color="primary" (click)="SubmitForm()">Entrar</button>
                 </form>
             </div>
         </div>
         <div>
-            <p class="signup">Ainda não tem conta? <a (click)="redirectTo('signup')">Cadastre-se</a></p>
+            <p class="signup">Ainda não tem conta? <a (click)="RedirectTo('signup')">Cadastre-se</a></p>
         </div>
     </div>
     <div *ngIf="!isDeviceSm()" fxLayout="column" fxLayoutAlign="center" fxFlex="50%" class="sideB">

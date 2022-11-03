@@ -1,0 +1,8 @@
+    <app-header (viewEvent)="ToggleView($event)"></app-header>
+    <body>
+        <div fxFlex="column" fxLayoutAlign="space-around" fxLayoutGap="34px">
+            <app-ranking class="body" *ngIf="view === 'ranking'"></app-ranking>
+            <app-card-scroll class="body" fxFlex="50%" *ngIf="view === 'dashboard'"></app-card-scroll>
+            <app-social  class="body" fxFlex="30%" *ngIf="view === 'dashboard' && !isDeviceMd()"></app-social>
+        </div>
+    </body>
